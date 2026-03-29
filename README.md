@@ -2,15 +2,10 @@
 
 ## Installation
 
-You'll need to build `fftw` the first time you install it:
-
+Install dependencies that are managed using `conan`:
 ```shell
-conan install . --output-folder build --build=fftw/3.3.10
-```
-
-Every other time you can exclude the `--build` flag
-```shell
-conan install . --output-folder build 
+conan install . --build=missing -s build_type=Release
+conan install . --build=missing -s build_type=Debug
 ```
 
 ### CMake
