@@ -2,7 +2,15 @@
 
 ## Build
 
-This project is built using CMake. The dependency on JUCE is collected using `FetchContent`.
+### CMake
+This project uses CMake as a build system generator. You will also need a C++ compiler installed on your machine.
+
+### Dependencies
+
+Collect `JUCE` with:
+```
+git submodule update --init --recursive
+```
 
 <!-- Install dependencies that are managed using `conan`:
 ```shell
@@ -19,3 +27,6 @@ The build:
 ```shell
 cmake --build build
 ```
+
+## References
+Thanks to the [Princeton Sound Lab](https://soundlab.cs.princeton.edu/) for the LPC implementation!
