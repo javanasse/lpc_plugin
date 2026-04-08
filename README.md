@@ -1,5 +1,7 @@
 # Linear Predictive Coding Plugin with JUCE
 
+![plugin user interface](imgs/plugin.png)
+
 ## Build
 
 ### CMake
