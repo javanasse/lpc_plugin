@@ -27,6 +27,8 @@ private:
     // access the processor object that created it.
     AudioPluginAudioProcessor& processorRef;
 
+    juce::LookAndFeel_V4 lookAndFeel;
+
     juce::Slider numCoefficientsSlider;
     juce::Label numCoefficientsSliderLabel;
     juce::AudioProcessorValueTreeState::SliderAttachment numCoefficientsSliderAttachment;

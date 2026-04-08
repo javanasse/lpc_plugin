@@ -8,13 +8,16 @@ AudioPluginAudioProcessorEditor::AudioPluginAudioProcessorEditor (AudioPluginAud
     whisperButtonAttachment(p.parameters, "whisperFlag", whisperButton)
 {
     juce::ignoreUnused (processorRef);
+
+    lookAndFeel.setColour(juce::Slider::thumbColourId, juce::Colours::antiquewhite);
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
 
     addAndMakeVisible(numCoefficientsSlider);
     numCoefficientsSlider.setSliderStyle(juce::Slider::LinearHorizontal);
-    numCoefficientsSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 40, 15);
+    numCoefficientsSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 40, 15);
     numCoefficientsSlider.addListener(this);
+    numCoefficientsSlider.setLookAndFeel(&lookAndFeel);
 
     addAndMakeVisible (numCoefficientsSliderLabel);
     numCoefficientsSliderLabel.setText ("Order", juce::dontSendNotification);
@@ -23,6 +26,7 @@ AudioPluginAudioProcessorEditor::AudioPluginAudioProcessorEditor (AudioPluginAud
     addAndMakeVisible(whisperButton);
     whisperButton.setButtonText("Whisper");
     whisperButton.addListener(this);
+    whisperButton.setLookAndFeel(&lookAndFeel);
 
     setSize (400, 300);
 
@@ -51,7 +55,7 @@ void AudioPluginAudioProcessorEditor::buttonStateChanged(juce::Button *button)
 void AudioPluginAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
+    g.fillAll (juce::Colours::cornflowerblue);
 
     processorRef.createAnalyserPlot(spectrogramPath, spectrogramBounds.reduced(4), 20.0f);
     g.drawRect(spectrogramBounds.reduced(3));
@@ -62,12 +66,14 @@ void AudioPluginAudioProcessorEditor::paint (juce::Graphics& g)
 
 void AudioPluginAudioProcessorEditor::resized()
 {
-    int sliderBuffer = 120;
-    numCoefficientsSlider.setBounds(sliderBuffer, 20, getWidth() - sliderBuffer - 10, 100);
+    spectrogramBounds.setBounds(10, 10, getWidth() - 20, 100);
 
-    whisperButton.setBounds(100, 100, 100, 100);
+    int sliderBuffer = 20;
+    int labelBuffer = 50;
+    numCoefficientsSlider.setBounds(labelBuffer, spectrogramBounds.getBottom() + sliderBuffer, getWidth() - sliderBuffer - labelBuffer, 50);
 
-    spectrogramBounds.setBounds(getWidth() - 100, getHeight() - 100, 100, 100);
+    whisperButton.setBounds(labelBuffer, numCoefficientsSlider.getBottom() + sliderBuffer, 100, 100);
+
 }
 
 void AudioPluginAudioProcessorEditor::timerCallback()
